@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<annotation>
+  <folder>/collection_01/part_2</folder>
+  <filename>pexels-photo-110812.jpg</filename>
+  <path/>
+  <source>
+    <database>Unknown</database>
+  </source>
+  <size_part>
+    <width>1135</width>
+    <height>750</height>
+    <depth>3</depth>
+  </size_part>
+  <segmented>0</segmented>
+  <object>
+    <name>Long Beak Bird</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>716.53348</xmin>
+      <ymin>254.40607</ymin>
+      <xmax>998.76739</xmax>
+      <ymax>555.8916</ymax>
+    </bndbox>
+  </object>
+</annotation>

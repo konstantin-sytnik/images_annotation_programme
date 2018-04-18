@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <annotation>
-  <folder>/collection_01/part_1</folder>
-  <filename>pexels-photo-60091.jpg</filename>
+  <folder>/collection_01/part_2</folder>
+  <filename>street-animals-birds-doves.jpg</filename>
   <path/>
   <source>
     <database>Unknown</database>
@@ -13,27 +13,27 @@
   </size_part>
   <segmented>0</segmented>
   <object>
-    <name>VTP:Vertical Tail Plane</name>
+    <name>Long Beak Bird</name>
     <pose>Unspecified</pose>
     <truncated>0</truncated>
     <difficult>0</difficult>
     <bndbox>
-      <xmin>488</xmin>
-      <ymin>245.51751</ymin>
-      <xmax>674</xmax>
-      <ymax>601.5429</ymax>
+      <xmin>388.08354</xmin>
+      <ymin>108.52594</ymin>
+      <xmax>568.08354</xmax>
+      <ymax>338.28711</ymax>
     </bndbox>
   </object>
   <object>
-    <name>ASDFDASF</name>
+    <name>Baby Bird</name>
     <pose>Unspecified</pose>
     <truncated>0</truncated>
     <difficult>0</difficult>
     <bndbox>
-      <xmin>814.97543</xmin>
-      <ymin>104.87708</ymin>
-      <xmax>979.27027</xmax>
-      <ymax>351.11985</ymax>
+      <xmin>681.19165</xmin>
+      <ymin>91.50992</ymin>
+      <xmax>971.86733</xmax>
+      <ymax>310.33007</ymax>
     </bndbox>
   </object>
 </annotation>

@@ -1,0 +1,25 @@
+{
+  "name": "images_annotation_programme_js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aigle": "^1.12.0-alpha.5",
+    "body-parser": "^1.18.2",
+    "ejs": "^2.5.8",
+    "express": "^4.16.3",
+    "express-static": "^1.2.5",
+    "lodash": "^4.17.5",
+    "xml2js": "^0.4.19"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.1.0"
+  }
+}

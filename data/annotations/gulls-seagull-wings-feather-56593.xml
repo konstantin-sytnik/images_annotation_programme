@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<annotation>
+  <folder>/collection_01/part_1</folder>
+  <filename>gulls-seagull-wings-feather-56593.jpg</filename>
+  <path/>
+  <source>
+    <database>Unknown</database>
+  </source>
+  <size_part>
+    <width>1120</width>
+    <height>750</height>
+    <depth>3</depth>
+  </size_part>
+  <segmented>0</segmented>
+  <object>
+    <name>Parrot</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>424.52988</xmin>
+      <ymin>273.85185</ymin>
+      <xmax>732.20347</xmax>
+      <ymax>689.60272</ymax>
+    </bndbox>
+  </object>
+</annotation>

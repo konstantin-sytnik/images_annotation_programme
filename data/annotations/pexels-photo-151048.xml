@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<annotation>
+  <folder>/collection_01/part_2</folder>
+  <filename>pexels-photo-151048.jpg</filename>
+  <path/>
+  <source>
+    <database>Unknown</database>
+  </source>
+  <size_part>
+    <width>1075</width>
+    <height>750</height>
+    <depth>3</depth>
+  </size_part>
+  <segmented>0</segmented>
+  <object>
+    <name>Parrot</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>621.10231</xmin>
+      <ymin>219.14922</ymin>
+      <xmax>978.6395</xmax>
+      <ymax>514.55117</ymax>
+    </bndbox>
+  </object>
+</annotation>
