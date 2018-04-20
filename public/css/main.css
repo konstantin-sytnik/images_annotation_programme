@@ -6,7 +6,8 @@
     overflow-x: hidden;
     overflow-y: scroll;
     overflow-y: overlay;
-    height: 350px;
+    min-height: 360px;
+    max-height: 600px;
 }
 
 .tag-button {

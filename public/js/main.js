@@ -38,112 +38,113 @@ var firstWidth = 0;
 
 $(document).ready(function () {
   $('#image_to_process').on("load", function () {
+    setTimeout(function () {
+      console.log("INFO: " + "on('load', function() ");
+      changeStatusMessage = false;
 
-    console.log("INFO: " + "on('load', function() ");
-    changeStatusMessage = false;
+      lastLoadedWidth = $('#image_to_process').get(0).naturalWidth;
+      lastLoadedHeight = $('#image_to_process').get(0).naturalHeight;
 
-    lastLoadedWidth = $('#image_to_process').get(0).naturalWidth;
-    lastLoadedHeight = $('#image_to_process').get(0).naturalHeight;
+      image_info.width = lastLoadedWidth;
+      image_info.height = lastLoadedHeight;
 
-    image_info.width = lastLoadedWidth;
-    image_info.height = lastLoadedHeight;
+      console.log("INFO: " + "image_info.width = " + image_info.width);
+      console.log("INFO: " + "image_info.height = " + image_info.height);
 
-    console.log("INFO: " + "image_info.width = " + image_info.width);
-    console.log("INFO: " + "image_info.height = " + image_info.height);
+      if (firstWidth == 0) {
+        firstWidth = $('#image_to_process').get(0).width;
+      }
 
-    if (firstWidth == 0) {
-      firstWidth = $('#image_to_process').get(0).width;
-    }
+      ratio = lastLoadedWidth / lastLoadedHeight;
 
-    ratio = lastLoadedWidth / lastLoadedHeight;
+      col2_width = 2 * $(window).width() / 3;
+      // Image is to large
+      if (image_info.width < col2_width) {
+        col2_width = image_info.width;
+      }
 
-    col2_width = 2 * $(window).width() / 3;
-    // Image is to large
-    if (image_info.width < col2_width) {
-      col2_width = image_info.width;
-    }
+      image_screen_width = col2_width;
+      image_screen_height = image_screen_width / ratio;
 
-    image_screen_width = col2_width;
-    image_screen_height = image_screen_width / ratio;
+      // Image is to high
+      if (image_screen_height > $(window).height() * 0.75) {
+        image_screen_height = parseInt($(window).height() * 0.75, 10);
+        image_screen_width = parseInt(image_screen_height * ratio, 10);
+        col2_width = image_screen_width;
 
-    // Image is to high
-    if (image_screen_height > $(window).height() * 0.75) {
-      image_screen_height = parseInt($(window).height() * 0.75, 10);
-      image_screen_width = parseInt(image_screen_height * ratio, 10);
-      col2_width = image_screen_width;
+      }
 
-    }
+      // alert("New image size = " + image_screen_width + "px , " + image_screen_height + "px");
 
-    // alert("New image size = " + image_screen_width + "px , " + image_screen_height + "px");
+      remaining_x_space = $(window).width() - col2_width;
+      col1_width = 1 * remaining_x_space / 6;
+      col3_width = 4 * remaining_x_space / 6;
+      col4_width = 1 * remaining_x_space / 6;
 
-    remaining_x_space = $(window).width() - col2_width;
-    col1_width = 1 * remaining_x_space / 6;
-    col3_width = 4 * remaining_x_space / 6;
-    col4_width = 1 * remaining_x_space / 6;
+      $("#image_to_process").attr({width: image_screen_width + "px"});
+      $("#image_to_process").attr({height: image_screen_height + "px"});
 
-    $("#image_to_process").attr({width: image_screen_width + "px"});
-    $("#image_to_process").attr({height: image_screen_height + "px"});
+      // col1_width = ($(window).width() - $('#image_to_process').get(0).width - 350) /2;
+      // col2_width = $('#image_to_process').get(0).width;
+      // col3_width = ($(window).width() - $('#image_to_process').get(0).width - 350) /2;
 
-    // col1_width = ($(window).width() - $('#image_to_process').get(0).width - 350) /2;
-    // col2_width = $('#image_to_process').get(0).width;
-    // col3_width = ($(window).width() - $('#image_to_process').get(0).width - 350) /2;
+      console.log("INFO: " + "$(window).width() = " + $(window).width());
+      console.log("INFO: " + "$(window).height() = " + $(window).height());
 
-    console.log("INFO: " + "$(window).width() = " + $(window).width());
-    console.log("INFO: " + "$(window).height() = " + $(window).height());
+      console.log("INFO: " + "col1_width = " + col1_width);
+      console.log("INFO: " + "col2_width = " + col2_width);
+      console.log("INFO: " + "col3_width = " + col3_width);
+      console.log("INFO: " + "col4_width = " + col4_width);
 
-    console.log("INFO: " + "col1_width = " + col1_width);
-    console.log("INFO: " + "col2_width = " + col2_width);
-    console.log("INFO: " + "col3_width = " + col3_width);
-    console.log("INFO: " + "col4_width = " + col4_width);
+      $("#col1").css("width", col1_width + "px");
+      $("#col2").css("width", col2_width + "px");
+      $("#col3").css("width", col3_width + "px");
+      $("#col4").css("width", col4_width + "px");
 
-    $("#col1").css("width", col1_width + "px");
-    $("#col2").css("width", col2_width + "px");
-    $("#col3").css("width", col3_width + "px");
-    $("#col4").css("width", col4_width + "px");
+      // image_screen_width = 600;
+      // image_screen_height = image_screen_width/ratio;
+      // Set image dimension
+      //$("#image_to_process").attr({width:image_screen_width+"px"});
+      //$("#image_to_process").attr({height:image_screen_height+"px"});
 
-    // image_screen_width = 600;
-    // image_screen_height = image_screen_width/ratio;
-    // Set image dimension
-    //$("#image_to_process").attr({width:image_screen_width+"px"});
-    //$("#image_to_process").attr({height:image_screen_height+"px"});
+      ratio_original_to_screen_x = image_screen_width / lastLoadedWidth;
+      ratio_original_to_screen_y = image_screen_height / lastLoadedHeight;
 
-    ratio_original_to_screen_x = image_screen_width / lastLoadedWidth;
-    ratio_original_to_screen_y = image_screen_height / lastLoadedHeight;
+      /*$('#image_to_process').selectAreas(
+       {
+       allowNudge: false,
+       // onChanged:onAreaChanged,
+       onDeleted:onAreaDeleted,
+       });		*/
 
-    /*$('#image_to_process').selectAreas(
-     {
-     allowNudge: false,
-     // onChanged:onAreaChanged,
-     onDeleted:onAreaDeleted,
-     });		*/
+      // Loop on tag info
+      json_annotations.forEach(function (element) {
+        var areaOptions = {
+          x: (element.x * ratio_original_to_screen_x),
+          y: (element.y * ratio_original_to_screen_y),
+          width: (element.width * ratio_original_to_screen_x),
+          height: (element.height * ratio_original_to_screen_y),
+          tag: element.tag,
+        };
 
-    // Loop on tag info
-    json_annotations.forEach(function (element) {
-      var areaOptions = {
-        x: (element.x * ratio_original_to_screen_x),
-        y: (element.y * ratio_original_to_screen_y),
-        width: (element.width * ratio_original_to_screen_x),
-        height: (element.height * ratio_original_to_screen_y),
-        tag: element.tag,
-      };
+        // We have to convert x, y and size to image in the HTML page
+        $('#image_to_process').selectAreas('add', areaOptions);
+      });
 
-      // We have to convert x, y and size to image in the HTML page
-      $('#image_to_process').selectAreas('add', areaOptions);
-    });
+      // Get list of areas
+      var areas = $('#image_to_process').selectAreas('areas');
+      if (areas.length > 0) {
+        // Selected area is the first one
+        current_area = areas[0];
+        // Select first area
+        onAreaChanged(null, current_area.id, areas)
+        $('#image_to_process').selectAreas('set', current_area.id);
+      }
+      else {
+        current_area = null;
+      }
 
-    // Get list of areas
-    var areas = $('#image_to_process').selectAreas('areas');
-    if (areas.length > 0) {
-      // Selected area is the first one
-      current_area = areas[0];
-      // Select first area
-      onAreaChanged(null, current_area.id, areas)
-      $('#image_to_process').selectAreas('set', current_area.id);
-    }
-    else {
-      current_area = null;
-    }
-
+    }, 100)
   });
 
   $('#image_to_process').on("changed", function (event, id, areas) {
