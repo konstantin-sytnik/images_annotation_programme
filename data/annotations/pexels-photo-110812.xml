@@ -13,15 +13,15 @@
   </size_part>
   <segmented>0</segmented>
   <object>
-    <name>Long Beak Bird</name>
+    <name>Parrot</name>
     <pose>Unspecified</pose>
     <truncated>0</truncated>
     <difficult>0</difficult>
     <bndbox>
-      <xmin>716.53348</xmin>
-      <ymin>254.40607</ymin>
-      <xmax>998.76739</xmax>
-      <ymax>555.8916</ymax>
+      <xmin>442.72447</xmin>
+      <ymin>211.9932</ymin>
+      <xmax>708.33787</xmax>
+      <ymax>578.22128</ymax>
     </bndbox>
   </object>
 </annotation>
