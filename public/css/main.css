@@ -1,0 +1,32 @@
+.white {
+    background-color: #fff;
+}
+
+.tags-container {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    overflow-y: overlay;
+    height: 350px;
+}
+
+.tag-button {
+    display: inline-block;
+    float: left;
+}
+
+#col2 {
+    white-space: nowrap;
+    background-color: #fff;
+    width: 60%;
+    max-width: 800px;
+    overflow: hidden;
+}
+
+#col3 {
+    white-space: nowrap;
+    padding-left: 30px;
+    width: 350px;
+    max-width: 400px;
+    background-color: #fff;
+    overflow: hidden;
+}

@@ -146,45 +146,6 @@ $(document).ready(function () {
 
   });
 
-  var options = {
-    //data: list_of_tags,
-
-    url: "resources/list_of_tags.json",
-    getValue: "name",
-
-    template: {
-      type: "iconRight",
-      fields: {
-        iconSrc: "icon"
-      }
-    },
-
-
-    list: {
-      maxNumberOfElements: 8,
-
-      match: {
-        enabled: true
-      },
-
-      sort: {
-        enabled: true
-      },
-
-      onClickEvent: function () {
-        isTagInAuthorizedList()
-      },
-
-      /*onKeyEnterEvent: function() {
-       alert("Enter !");
-       },
-       onChooseEvent: function() {
-       alert("onChooseEvent !");
-       },*/
-
-    },
-  };
-
   $('#image_to_process').on("changed", function (event, id, areas) {
     // console.log("INFO: " + "index.html on(changed)");
 
@@ -202,28 +163,6 @@ $(document).ready(function () {
       return;
     }
 
-    // Add the top/left offset of the image position in the page
-    var region_tag_length = $("#tag_input").val().length;
-
-    // Set back the area tag if stored
-    var stored_tag = area.tag
-    if (stored_tag.length >= 3) {
-      setValidInputTag(stored_tag);
-      region_tag_length = area.tag.length;
-    }
-    else {
-      // Set en empty tag
-      setNotYetValidInputTag("");
-      region_tag_length = 0;
-    }
-
-    // Do not focus if tag is not empty and at begining or after new zone creation
-    if ((init_finished) && (region_tag_length == 0)) {
-      $("#tag_input").focus();
-    }
-    else {
-      $("#tag_input").focusout();
-    }
     new_zone_created = false
 
     // Check region size
@@ -251,8 +190,6 @@ $(document).ready(function () {
 
   });
 
-  $("#tag_input").easyAutocomplete(options);
-
   new_zone_created = false
 
   $('#add_region').click(function (e) {
@@ -263,6 +200,10 @@ $(document).ready(function () {
   $('#validate_button').click(function (e) {
     // Sets a random selection
     validateTagsAndRegions();
+  });
+
+  $('#ignore_button').click(function (e) {
+    window.location.reload();
   });
 
   $('#all_annotations_button').click(function (e) {
@@ -315,57 +256,10 @@ $(document).ready(function () {
 
   });
 
-  $("#tag_input").focus(function () {
-
-    if (tag_error_raised) {
-      tag_error_raised = false
-      $("#tag_input").val("");
-      $('#tag_input').css({'color': '#000'});
-    }
-  });
-
-  $("#tag_input").focusout(function () {
-    isTagInAuthorizedList()
-  });
-
-  $("#tag_input").on('keyup', function (e) {
-    if (e.keyCode == 13) {
-      // alert("Entering #13");
-      var region_tag = $("#tag_input").val();
-      if (region_tag.length >= 3) {
-        setTagAndRegion();
-      }
-    }
-  });
-
   init_finished = true;
+
+  loadTags();
 })
-
-function setValidInputTag(_tag) {
-  $("#tag_input").val(_tag);
-  isTagInAuthorizedList();
-}
-
-function setNotYetValidInputTag(_tag) {
-  $("#tag_input").val(_tag);
-  isTagInAuthorizedList();
-}
-
-function isTagInAuthorizedList() {
-  var region_tag = $("#tag_input").val();
-
-  list_of_tags = $("#tag_input").getAllItemData();
-
-  if (list_of_tags.indexOf(region_tag) >= 0) {
-    $('#tag_input').css({'color': '#14AEE1'});
-    return true;
-  }
-  else {
-    $('#tag_input').css({'color': '#000'});
-    return false;
-  }
-
-}
 
 function onAreaDeleted(event, id, areas) {
   if (current_area != null) {
@@ -397,28 +291,6 @@ function onAreaChanged(event, id, areas) {
     return;
   }
 
-  // Add the top/left offset of the image position in the page
-  var region_tag_length = $("#tag_input").val().length;
-
-  // Set back the area tag if stored
-  var stored_tag = area.tag
-  if (stored_tag.length >= 3) {
-    setValidInputTag(stored_tag);
-    region_tag_length = area.tag.length;
-  }
-  else {
-    // Set en empty tag
-    setNotYetValidInputTag("");
-    region_tag_length = 0;
-  }
-
-  // Do not focus if tag is not empty and at begining or after new zone creation
-  if ((init_finished) && (region_tag_length == 0)) {
-    $("#tag_input").focus();
-  }
-  else {
-    $("#tag_input").focusout();
-  }
   new_zone_created = false
 
   // Check region size
@@ -469,7 +341,7 @@ function setStatus(status_text) {
   setStatusAndColor(status_text, "#000");
 }
 
-function setTagAndRegion() {
+function setTagAndRegion(tag) {
 
   changeStatusMessage = true;
 
@@ -486,31 +358,12 @@ function setTagAndRegion() {
     return false;
   }
 
-  var region_tag = $("#tag_input").val();
-
-  if (region_tag.length < 3) {
-    // Display an alert
-    tag_error_raised = true
-    $("#tag_input").val(MESSAGE_EMPTY_TAG);
-    $('#tag_input').css({'color': '#999'});
-
-    return false;
-  }
-
-  if (!isTagInAuthorizedList()) {
-    setStatusAndColor("This tag is not in the predefined list.", RED_COLOR);
-    return false;
-  }
-
   // Just change the tag, get area, id, ...
-  $('#image_to_process').selectAreas('setTag', current_area.id, region_tag);
+  $('#image_to_process').selectAreas('setTag', current_area.id, tag.name);
   setStatus("Tag has been set.");
 
   // Selection another box
   new_zone_created = true;
-
-  // Init text
-  $("#tag_input").focusout();
 
   return true;
 }
@@ -573,21 +426,7 @@ function validateTagsAndRegions() {
     success: function (data, status) {
       // Reload a page but with a message
       setStatusAndColor("Data has been sent.", GREEN_COLOR);
-      loadImage(); // replace the image
-      getOrCreateUserId(); // Count also points later on
-
-      // Message to user
-      $("#message").text(data.message);
-      $('#image_to_process').selectAreas('reset');
-      image_info = {
-        url: "",
-        folder: "",
-        id: "",
-        width: 0,
-        height: 0,
-        annotations: [],
-      };
-
+      window.location.reload();
     },
     error: function (data, status, error) {
       setStatusAndColor("Unable to send data, please retry or check your connection.", RED_COLOR)
@@ -677,5 +516,28 @@ function loadImage() {
 
     },
     dataType: 'html'
+  });
+}
+
+function loadTags() {
+  $.ajax({
+    type: 'GET',
+    url: '/tag',
+    success: function onSuccess(data) {
+      var $tagsContainer = $('.tags-container');
+      var $tagPrototype = $('.tag-button', $tagsContainer);
+      $tagPrototype.remove();
+      _.each(data, function (tag) {
+        var $tag = $tagPrototype.clone();
+        $('span.tooltiptext', $tag).text(tag.name);
+        $('img', $tag)
+          .attr('src', tag.icon)
+          .attr('alt', tag.name);
+        $tag.click(function () {
+          setTagAndRegion(tag);
+        })
+        $tag.appendTo($tagsContainer);
+      })
+    },
   });
 }
