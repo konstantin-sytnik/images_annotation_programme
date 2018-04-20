@@ -101,6 +101,8 @@ $(document).ready(function () {
       $("#col3").css("width", col3_width + "px");
       $("#col4").css("width", col4_width + "px");
 
+      $(".tags-container","#col3").css("height", (image_screen_height - 170) + "px");
+
       // image_screen_width = 600;
       // image_screen_height = image_screen_width/ratio;
       // Set image dimension
@@ -144,7 +146,7 @@ $(document).ready(function () {
         current_area = null;
       }
 
-    }, 100)
+    }, 50)
   });
 
   $('#image_to_process').on("changed", function (event, id, areas) {
